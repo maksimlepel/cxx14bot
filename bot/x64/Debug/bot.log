@@ -1,0 +1,6 @@
+﻿  CoinInfo.cpp
+C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\CoinInfo.cpp(19,20): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\CoinInfo.cpp(23,20): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\CoinInfo.cpp(27,20): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\CoinInfo.cpp(35,57): warning C4566: символ, представленный универсальным именем символа "\u2705", невозможно представить в текущей кодовой странице (1251)
+  bot.vcxproj -> C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\x64\Debug\bot.exe
