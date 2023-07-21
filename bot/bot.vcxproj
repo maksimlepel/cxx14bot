@@ -141,6 +141,7 @@
     <ClInclude Include="CoinInfo.h" />
     <ClInclude Include="DBhelper.h" />
     <ClInclude Include="JSONParser.h" />
+    <ClInclude Include="SecretInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

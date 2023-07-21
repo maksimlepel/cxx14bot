@@ -1,6 +1,6 @@
 ﻿#include "CoinInfo.h"
-#include <boost/algorithm/string.hpp>
-std::string CoinInfo::GetCoinPtice(std::string ticker)
+
+std::string CoinInfo::GetCoinPrice(std::string ticker)
 {
     if (ticker[0] == '/')
     {
