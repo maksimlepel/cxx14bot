@@ -1,5 +1,6 @@
 #include "DBhelper.h"
 #include "helperFunctions.h"
+#include "emoji.h"
 DBhelper::DBhelper()
 {
     
@@ -91,9 +92,9 @@ std::string DBhelper::GetCoinInfo(std::string ticker)
         std::string highPrice = worker.query_value <std::string>("SELECT maxprice from coins where ticker = '" + ticker + "USDT'");
         std::string priceChangePercent = worker.query_value <std::string>("SELECT pricechangepercent from coins where ticker = '" + ticker + "USDT'");
 
-        std::string substr = "up";
+        std::string substr = emojicpp::emojize("up :white_check_mark::white_check_mark::white_check_mark:");
         if (priceChangePercent[0] == '-') {
-            substr = "down"; priceChangePercent.erase(0, 1);
+            substr = emojicpp::emojize("down :x::x::x:"); priceChangePercent.erase(0, 1);
         }
         worker.commit();
         helperFunctions::RemoveZeroes(price);
@@ -113,7 +114,7 @@ std::string DBhelper::GetCoinInfo(std::string ticker)
 
 std::string DBhelper::Get10Gainers()
 {
-    std::string result = "";
+    std::string result = emojicpp::emojize(":white_check_mark::white_check_mark::white_check_mark::white_check_mark::white_check_mark:\n");
     pqxx::connection connectionObject(SecretInfo::GetConnectionString().c_str());
     pqxx::work worker(connectionObject);
     std::vector<int>UsersID;
@@ -137,7 +138,7 @@ std::string DBhelper::Get10Gainers()
 
 std::string DBhelper::Get10Loosers()
 {
-    std::string result = "";
+    std::string result = emojicpp::emojize(":x::x::x::x::x:\n");;
     pqxx::connection connectionObject(SecretInfo::GetConnectionString().c_str());
     pqxx::work worker(connectionObject);
     std::vector<int>UsersID;
