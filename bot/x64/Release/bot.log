@@ -3,10 +3,8 @@
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\bot.cpp(24,33): warning C4244: аргумент: преобразование "int64_t" в "int", возможна потеря данных
-  Создание кода
-  113 of 2332 functions ( 4.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    27 functions had inline decision re-evaluated but remain unchanged
-  Создание кода завершено
+C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\bot\bot.cpp(66,33): warning C4244: аргумент: преобразование "int64_t" в "int", возможна потеря данных
+  DBhelper.cpp
+  Создание кода...
+  LINK : указан параметр /LTCG, но не требуется создание кода; удалите /LTCG из командной строки компоновки для повышения производительности компоновщика
   bot.vcxproj -> C:\Users\NoSuchFileException\Desktop\TCPqt\tgBotCpp\bot\x64\Release\bot.exe

@@ -1,4 +1,5 @@
 #include "JSONParser.h"
+
  size_t JSONParser::Writer(char* buffer, size_t size, size_t nmemb, std::string* html)
 {
     int result = 0;

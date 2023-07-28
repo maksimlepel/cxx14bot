@@ -120,7 +120,8 @@
       <PreprocessorDefinitions>_SILENCE_CXX20_CISO646_REMOVED_WARNING;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Program Files\libpqxx\include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="CoinInfo.h" />
     <ClInclude Include="DBhelper.h" />
+    <ClInclude Include="emoji.h" />
     <ClInclude Include="JSONParser.h" />
     <ClInclude Include="SecretInfo.h" />
   </ItemGroup>

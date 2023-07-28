@@ -1,6 +1,5 @@
 ﻿#include "CoinInfo.h"
-
-std::string CoinInfo::GetCoinPrice(std::string ticker)
+std::string CoinInfo::GetCoinInfo(std::string ticker)
 {
     if (ticker[0] == '/')
     {

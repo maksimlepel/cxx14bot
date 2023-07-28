@@ -5,7 +5,7 @@
 class CoinInfo:JSONParser
 {
 public:
-	 std::string GetCoinPrice(std::string ticker);
+	 std::string GetCoinInfo(std::string ticker);
 
 
 };
