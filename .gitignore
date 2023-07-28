@@ -2,3 +2,8 @@
 .x64/
 .vs/
 .bot/x64/
+*.log
+*.obj
+*.pdb
+*.tlog
+*.exe

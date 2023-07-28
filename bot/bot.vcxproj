@@ -142,6 +142,7 @@
     <ClInclude Include="CoinInfo.h" />
     <ClInclude Include="DBhelper.h" />
     <ClInclude Include="emoji.h" />
+    <ClInclude Include="helperFunctions.h" />
     <ClInclude Include="JSONParser.h" />
     <ClInclude Include="SecretInfo.h" />
   </ItemGroup>

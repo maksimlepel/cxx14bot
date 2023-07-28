@@ -1,4 +1,5 @@
 #include "DBhelper.h"
+#include "helperFunctions.h"
 DBhelper::DBhelper()
 {
     
@@ -85,23 +86,22 @@ std::string DBhelper::GetCoinInfo(std::string ticker)
     try
     {
         
-        double price = worker.query_value <double>("SELECT lastprice from coins where ticker = '" + ticker + "USDT'");
-        double lowPrice = worker.query_value <double>("SELECT minprice from coins where ticker = '" + ticker + "USDT'");
-        double highPrice = worker.query_value <double>("SELECT maxprice from coins where ticker = '" + ticker + "USDT'");
+        std::string price = worker.query_value <std::string>("SELECT lastprice from coins where ticker = '" + ticker + "USDT'");
+        std::string lowPrice = worker.query_value <std::string>("SELECT minprice from coins where ticker = '" + ticker + "USDT'");
+        std::string highPrice = worker.query_value <std::string>("SELECT maxprice from coins where ticker = '" + ticker + "USDT'");
         std::string priceChangePercent = worker.query_value <std::string>("SELECT pricechangepercent from coins where ticker = '" + ticker + "USDT'");
 
         std::string substr = "up";
         if (priceChangePercent[0] == '-') {
             substr = "down"; priceChangePercent.erase(0, 1);
         }
-
-        return "The " + ticker + " price is " + std::to_string(price) + " usdt now.\n" + "It's " + substr + " " + priceChangePercent + "% last 24h\nMax price: " + std::to_string(highPrice) + "$\nLow price: " + std::to_string(lowPrice) + "$";
-        
-
-        
-
-        
         worker.commit();
+        helperFunctions::RemoveZeroes(price);
+        helperFunctions::RemoveZeroes(lowPrice);
+        helperFunctions::RemoveZeroes(highPrice);
+        return "The " + ticker + " price is " + price + " usdt now.\n" + "It's " + substr + " " + priceChangePercent + "% last 24h\nMax price: " + highPrice + "$\nLow price: " + lowPrice + "$";
+        
+
     }
     catch (const std::exception& e)
     {
