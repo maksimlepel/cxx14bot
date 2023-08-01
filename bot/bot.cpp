@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <exception>
 
-
+#include <thread>
 #include <tgbot/tgbot.h>
 #include <vector>
 #include <ctime>
@@ -43,10 +43,17 @@ void createKeyboard(const std::vector<std::vector<std::string>>& buttonLayout, R
 }
 
 int main() {
-
     setlocale(LC_ALL, "");
     DBhelper db;
-    db.UpdateCoinTable();
+    std::thread t([&db]() 
+        {
+            while (1)
+            {
+                db.UpdateCoinTable();
+                std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+            }      
+
+        });
 
 
     CoinInfo ci;

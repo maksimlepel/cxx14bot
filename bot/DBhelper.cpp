@@ -26,6 +26,7 @@ std::vector<int> DBhelper:: getUsersID()
     return UsersID;
 }
 
+
 void DBhelper::UpdateCoinTable()
 {
     setlocale(LC_ALL, "Russian");
@@ -36,7 +37,7 @@ void DBhelper::UpdateCoinTable()
     pqxx::work worker(connectionObject);
     try
     {
-        std::cout << "update DB..." << std::endl;
+        std::cout << "updating DB..." << std::endl;
         for (int i = 0; i < 78; i++)
         {
             std::string ticker = js_obj[i]["symbol"].get<std::string>();
@@ -57,6 +58,7 @@ void DBhelper::UpdateCoinTable()
         std::cerr << e.what() << std::endl;
     }
 }
+
 
 
 void DBhelper::AddUser(int userID,std::string firstName)

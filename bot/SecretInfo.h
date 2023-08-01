@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+
 class SecretInfo
 {
 public:
@@ -8,7 +9,7 @@ public:
 		return connectionString;
 	}
 	static std::string GetToken()
-	{
+	{  
 		return token;
 	}
 private:
