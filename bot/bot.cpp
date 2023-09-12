@@ -17,6 +17,7 @@
 #include <chrono>
 #include "CoinInfo.h"
 #include "DBhelper.h"
+#include <cpr/cpr.h>
 #define _CRT_SECURE_NO_WARNINGS
 using namespace TgBot;
 
@@ -45,6 +46,7 @@ void createKeyboard(const std::vector<std::vector<std::string>>& buttonLayout, R
 }
 
 int main() {
+    bool needChart = false;
     setlocale(LC_ALL, "");
     DBhelper db;
     std::thread t([&db]() 
@@ -59,12 +61,12 @@ int main() {
 
 
     CoinInfo ci;
-    std::vector<std::string> commands = { "start","TopGainers", "TopLoosers", "TarotPricePredict" };
+    std::vector<std::string> commands = { "start","TopGainers", "TopLoosers", "TarotPricePredict","Chart" };
     TgBot::Bot bot(SecretInfo::GetToken());
 
     ReplyKeyboardMarkup::Ptr keyboardWithLayout(new ReplyKeyboardMarkup);
     createKeyboard({
-         {"TopGainers", "TopLoosers", "TarotPricePredict"},
+      {"TopGainers", "TopLoosers", "TarotPricePredict", "Chart"},
       {"btc", "eth", "near","xrp","bnb"},
       {"ada", "sol", "doge","trx","matic"},
       {"ltc", "atom", "shib","icp","link"}
@@ -83,7 +85,7 @@ int main() {
 
 
 
-    bot.getEvents().onAnyMessage([&db, &ci ,&bot,&commands](TgBot::Message::Ptr message) {
+    bot.getEvents().onAnyMessage([&db, &ci ,&bot,&commands,&needChart](TgBot::Message::Ptr message) {
 
         if (message->chat->id == 879628270 && message->text.substr(0,3)=="###") {
             std::vector<int> ids = db.getUsersID();
@@ -139,6 +141,11 @@ int main() {
             
         }
 
+        if (message->text == commands[4])
+        {
+            needChart = true;
+        }
+
         for (auto i : commands)
         {
             if (message->text == "/"+i  || message->text ==  i)
@@ -147,8 +154,26 @@ int main() {
             }
         }
 
+        if(needChart)
+        {
+            boost::to_upper(message->text);
+            bot.getApi().sendMessage(message->chat->id, "parsing chart from binance...");
+            cpr::Response r = cpr::Post(cpr::Url{"https://api.chart-img.com/v2/tradingview/advanced-chart"},
+            cpr::Header{{"x-api-key", "n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14"}, { "content-type","application/json" }},
+            cpr::Body{"{\"symbol\":\"BINANCE:"+ message->text+"USDT\",\"interval\":\"4h\",\"theme\":\"dark\"}"});
+            std::ofstream out("chart.png", std::ios::binary);
+            out << r.text;
+            out.close();
+            std::cout << r.status_code << std::endl;
+            std::cout << r.header["content-type"] << std::endl;
+            auto msg = bot.getApi().sendPhoto(message->chat->id, InputFile::fromFile("chart.png", "image/png"));
+            needChart = false;
+        }
+        else{
 
-        bot.getApi().sendMessage(message->chat->id, db.GetCoinInfo(message->text));
+            bot.getApi().sendMessage(message->chat->id, db.GetCoinInfo(message->text));
+        }
+
         });
 
     try {

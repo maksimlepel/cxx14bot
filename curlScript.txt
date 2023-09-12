@@ -1,1 +1,5 @@
 curl -o C:\Users\NoSuchFileException\Downloads\fuckingZip.zip https://curl.se/windows/latest.cgi?p=win64-mingw.zip
+
+curl -X POST https://api.chart-img.com/v2/tradingview/advanced-chart -H "x-api-key: {n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14}" -o fuckingChart.png
+curl -X POST https://api.chart-img.com/v2/tradingview/advanced-chart -H "x-api-key: n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14" -H "content-type: application/json" -d "{\"symbol\":\"BINANCE:ETHUSDT\",\"interval\":\"4h\"}" -o chart-img-02.png
+curl -X POST https://api.chart-img.com/v2/tradingview/advanced-chart -H "x-api-key: n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14" -H "content-type: application/json" -d "{\"symbol\":\"BINANCE:NEARUSDT\",\"interval\":\"4h\",\"theme\":\"dark\"}" -o near.png
