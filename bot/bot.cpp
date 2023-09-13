@@ -17,7 +17,6 @@
 #include <chrono>
 #include "CoinInfo.h"
 #include "DBhelper.h"
-#include <cpr/cpr.h>
 #define _CRT_SECURE_NO_WARNINGS
 using namespace TgBot;
 
@@ -76,7 +75,6 @@ int main() {
 
         db.AddUser(message->chat->id, message->chat->firstName);
         
-        //bot.getApi().sendMessage(message->chat->id, "Hi "+ message->chat->firstName+", please type coin ticker, chatid: "+ std::to_string(message->chat->id));
         bot.getApi().sendMessage(message->chat->id, "Hi " + message->chat->firstName + ", please type coin ticker, chatid: " + std::to_string(message->chat->id), false, 0, keyboardWithLayout);
         });
 
@@ -112,8 +110,7 @@ int main() {
 
         if (message->text == commands[3])
         {
-          //  auto thr = std::thread([&bot, &message]()
-          //      {
+
             srand(time(NULL));
                     auto cat = bot.getApi().sendPhoto(message->chat->id, InputFile::fromFile("cat.jpg", "image/jpeg"));
                     std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -124,26 +121,20 @@ int main() {
                     std::vector<std::string> laverage = { "x1","x2","x3","x5","x10","x15","x20","x25","x50","x100" };
                     std::vector<std::string> tickers = { "BTCUSDT","ETHUSDT","NEARUSDT","BNBUSDT","ADAUSDT","DOGEUSDT","XRPUSDT","DOTUSDT","UNIUSDT","LINKUSDT","LTCUSDT","BCHUSDT","SOLUSDT","MATICUSDT","ICPUSDT" };
                   
-                  
-                    int lsInd = rand() % LS.size();
-                    int tickInd = rand() % tickers.size();
-                    int lavInd = rand() % laverage.size();
 
-                    std::string mass = "It means you should take " + LS[lsInd] + " " + tickers[tickInd] + " at " + laverage[lavInd] + ".";
+                    std::string mass = "It means you should take " + LS[rand() % LS.size()] + " " + tickers[rand() % tickers.size()] + " at " + laverage[rand() % laverage.size()] + ".";
 
                     bot.getApi().sendMessage(message->chat->id,mass);
                     bot.getApi().deleteMessage(cat->chat->id, cat->messageId);
                     bot.getApi().deleteMessage(process->chat->id, process->messageId);
-            //    }
 
-           // );
-          //  thr.join();
             
         }
 
         if (message->text == commands[4])
         {
             needChart = true;
+            bot.getApi().sendMessage(message->chat->id, "Please type coin ticker");
         }
 
         for (auto i : commands)
@@ -156,17 +147,17 @@ int main() {
 
         if(needChart)
         {
-            boost::to_upper(message->text);
             bot.getApi().sendMessage(message->chat->id, "parsing chart from binance...");
-            cpr::Response r = cpr::Post(cpr::Url{"https://api.chart-img.com/v2/tradingview/advanced-chart"},
-            cpr::Header{{"x-api-key", "n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14"}, { "content-type","application/json" }},
-            cpr::Body{"{\"symbol\":\"BINANCE:"+ message->text+"USDT\",\"interval\":\"4h\",\"theme\":\"dark\"}"});
-            std::ofstream out("chart.png", std::ios::binary);
-            out << r.text;
-            out.close();
-            std::cout << r.status_code << std::endl;
-            std::cout << r.header["content-type"] << std::endl;
-            auto msg = bot.getApi().sendPhoto(message->chat->id, InputFile::fromFile("chart.png", "image/png"));
+            if (ci.getChart(message->text, message->chat->id))
+            {
+                
+                auto msg = bot.getApi().sendPhoto(message->chat->id, InputFile::fromFile("charts/" + std::to_string(message->chat->id) + "chart.png", "image/png"));
+
+            }
+            else 
+            {
+                bot.getApi().sendMessage(message->chat->id, "please enter correct ticker");
+            }
             needChart = false;
         }
         else{

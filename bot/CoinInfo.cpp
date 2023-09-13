@@ -42,3 +42,22 @@ std::string CoinInfo::GetCoinInfo(std::string ticker)
     }
 
 }
+bool CoinInfo::getChart(std::string ticker, int userId)
+{
+
+        boost::to_upper(ticker);
+        cpr::Response r = cpr::Post(cpr::Url{"https://api.chart-img.com/v2/tradingview/advanced-chart"},
+        cpr::Header{{"x-api-key", "n61GiZUCj26uvpfJ72J0d4J6UMgNzkE7OvAddO14"}, { "content-type","application/json" }},
+        cpr::Body{"{\"symbol\":\"BINANCE:" + ticker + "USDT\",\"interval\":\"4h\",\"theme\":\"dark\"}"});
+        std::cout << r.status_code << std::endl;
+        std::cout << r.header["content-type"] << std::endl;
+        if (r.status_code != 200)
+        {
+            return false;
+        }
+        std::ofstream out("charts/" + std::to_string(userId) + "chart.png", std::ios::binary);
+        out << r.text;
+        out.close();
+        return true;
+    
+}
