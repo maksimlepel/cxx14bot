@@ -134,6 +134,17 @@ int main() {
         if (message->text == commands[4])
         {
             needChart = true;
+            InlineKeyboardMarkup::Ptr keyboard(new InlineKeyboardMarkup);
+            std::vector<InlineKeyboardButton::Ptr> row0;
+            InlineKeyboardButton::Ptr checkButton(new InlineKeyboardButton);
+            checkButton->text = "15m";
+            checkButton->callbackData = "15m";
+            row0.push_back(checkButton);
+            checkButton->text = "5m";
+            checkButton->callbackData = "5m";
+            row0.push_back(checkButton);
+            keyboard->inlineKeyboard.push_back(row0);
+            bot.getApi().sendMessage(message->chat->id, "Hi!", false, 0, keyboard);
             bot.getApi().sendMessage(message->chat->id, "Please type coin ticker");
         }
 

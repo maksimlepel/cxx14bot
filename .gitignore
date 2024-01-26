@@ -8,3 +8,5 @@
 *.tlog
 *.exe
 bot/x64/
+curlScript.txt
+bot/SecretInfo.h
